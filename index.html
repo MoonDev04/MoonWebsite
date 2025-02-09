@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Key Purchase</title>
+    <title>Moon.Dev</title>
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
     <script>
         let keys = [
@@ -45,18 +45,26 @@
     </script>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; background-color: #1a1a1a; color: white; }
-        h1 { display: flex; justify-content: center; align-items: center; }
-        h1 img { margin-left: 10px; width: 30px; }
-        button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        h1 { display: flex; justify-content: center; align-items: center; font-size: 2em; }
+        h1 img { margin-left: 10px; width: 50px; }
+        .panel { background: #333; padding: 20px; margin: 10px auto; width: 50%; border-radius: 15px; }
+        .button-container { margin-top: 10px; }
+        button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; border-radius: 10px; }
     </style>
 </head>
 <body onload="updateKeyCount()">
-    <h1>Key Purchase <img src="moon-icon.png" alt="Moon"></h1>
+    <h1>Moon.Dev <img src="MoonPfp.webp" alt="Moon"></h1>
     <img src="HomeTab.png" alt="Product Image" width="600">
     <p id="keyCount"></p>
     
-    <div id="paypal-button-container"></div>
-    <button onclick="window.location.href='support.html'">Support</button>
+    <div class="button-container">
+        <div id="paypal-button-container"></div>
+        <button onclick="window.location.href='support.html'">Support</button>
+    </div>
+    
+    <div class="panel"><h2>Undetected</h2><p>Our software is continuously updated to remain undetected by anti-cheat systems.</p></div>
+    <div class="panel"><h2>Lightning Fast</h2><p>Experience instant execution with optimized performance and minimal latency.</p></div>
+    <div class="panel"><h2>Secure</h2><p>All transactions and user data are encrypted for maximum security.</p></div>
     
     <script>
         paypal.Buttons({
