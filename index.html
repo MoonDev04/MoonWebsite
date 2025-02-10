@@ -122,12 +122,19 @@
       text-align: center;
       width: 300px;
     }
+    /* New container for the textbox and button */
+    #accessInputContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;  /* Creates space between the textbox and the button */
+      margin-top: 10px;
+    }
     #accessForm input {
       padding: 10px;
       font-size: 16px;
       border-radius: 5px;
       border: none;
-      margin-right: 20px; /* Increased spacing between textbox and button */
       background-color: #555;
       color: white;
     }
@@ -222,8 +229,10 @@
   <div id="accessOverlay">
     <div id="accessForm">
       <p>Please enter the Early Access Key:</p>
-      <input type="password" id="accessKey" placeholder="Enter Access Key" />
-      <button onclick="checkAccess()">Check Key</button>
+      <div id="accessInputContainer">
+        <input type="password" id="accessKey" placeholder="Enter Access Key" />
+        <button onclick="checkAccess()">Check Key</button>
+      </div>
     </div>
   </div>
 
