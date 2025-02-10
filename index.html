@@ -85,7 +85,6 @@
     function selectPurchase(option) {
       if (option === 'basic') {
         window.location.href = "https://www.paypal.com/invoice/payerView/details/INV2-BMK2-V7LG-WPXK-ZUNE?PDFqr=true";
-        // Optionally, once payment is confirmed by your backend, you can trigger downloadKey()
       } else if (option === 'premium') {
         alert("Error: Coming soon");
       }
@@ -100,7 +99,7 @@
       margin: 0;
       padding: 0;
     }
-    /* Early Access Overlay */
+    /* Early Access Overlay Styles */
     #accessOverlay {
       position: fixed;
       top: 0;
@@ -116,8 +115,12 @@
     #accessForm {
       background-color: #222;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 15px;
+      border: 2px solid white;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      color: white;
+      text-align: center;
+      width: 300px;
     }
     #accessForm input {
       padding: 10px;
@@ -125,6 +128,8 @@
       border-radius: 5px;
       border: none;
       margin-right: 10px;
+      background-color: #555;
+      color: white;
     }
     #accessForm button {
       padding: 10px 20px;
@@ -218,7 +223,7 @@
     <div id="accessForm">
       <p>Please enter the Early Access Key:</p>
       <input type="password" id="accessKey" placeholder="Enter Access Key" />
-      <button onclick="checkAccess()">Enter</button>
+      <button onclick="checkAccess()">Check Key</button>
     </div>
   </div>
 
