@@ -54,7 +54,6 @@
     ];
 
     // Retrieve the keys from localStorage (if available) or initialize with initialKeys.
-    // (The key count is persisted between page reloads.)
     let keys = JSON.parse(localStorage.getItem('keys')) || initialKeys;
 
     // Update the key count displayed on the page.
@@ -132,26 +131,29 @@
       color: white;
       text-align: center;
       width: 300px;
+      box-sizing: border-box;
     }
     /* Container for the password input and eye icon */
     #accessInputContainer {
       display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 100%;
+      gap: 10px;
       margin-top: 10px;
+      box-sizing: border-box;
     }
     .password-container {
       position: relative;
-      display: inline-block;
+      flex: 1;
     }
     #accessKey {
-      padding: 10px;
+      width: 100%;
+      padding: 10px 40px 10px 10px; /* extra right padding for the eye icon */
       font-size: 16px;
       border-radius: 5px;
       border: none;
       background-color: #555;
       color: white;
-      padding-right: 40px; /* Extra space for the eye icon */
+      box-sizing: border-box;
     }
     #togglePassword {
       position: absolute;
@@ -170,7 +172,7 @@
       color: white;
       cursor: pointer;
       transition: background 0.3s;
-      margin-left: 20px;
+      flex-shrink: 0;
     }
     #accessForm button:hover {
       background-color: #666;
