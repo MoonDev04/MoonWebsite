@@ -20,12 +20,25 @@
       }
     }
 
-    // On load, check if access was granted; also update the key count.
+    // On load, check if access was granted; also update the key count and setup password toggle.
     window.onload = function () {
       if (localStorage.getItem("accessGranted") === "true") {
         document.getElementById("accessOverlay").style.display = "none";
       }
       updateKeyCount();
+      
+      // Set up toggle password functionality for the eye emoji.
+      const togglePassword = document.getElementById("togglePassword");
+      const accessKeyInput = document.getElementById("accessKey");
+      togglePassword.addEventListener("click", function () {
+        if (accessKeyInput.type === "password") {
+          accessKeyInput.type = "text";
+          togglePassword.textContent = "🙈"; // Use a "closed eye" emoji when text is visible.
+        } else {
+          accessKeyInput.type = "password";
+          togglePassword.textContent = "👁️"; // Use an "open eye" emoji when text is hidden.
+        }
+      });
     };
 
     // Initial keys list (original keys plus 50 additional keys)
@@ -122,21 +135,33 @@
       text-align: center;
       width: 300px;
     }
-    /* New container for the textbox and button */
+    /* Container for the password input and the eye icon */
     #accessInputContainer {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 20px;  /* Creates space between the textbox and the button */
       margin-top: 10px;
     }
-    #accessForm input {
+    .password-container {
+      position: relative;
+      display: inline-block;
+    }
+    #accessKey {
       padding: 10px;
       font-size: 16px;
       border-radius: 5px;
       border: none;
       background-color: #555;
       color: white;
+      padding-right: 40px; /* Extra padding for the eye icon */
+    }
+    #togglePassword {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
     }
     #accessForm button {
       padding: 10px 20px;
@@ -147,6 +172,7 @@
       color: white;
       cursor: pointer;
       transition: background 0.3s;
+      margin-left: 20px;
     }
     #accessForm button:hover {
       background-color: #666;
@@ -230,7 +256,10 @@
     <div id="accessForm">
       <p>Please enter the Early Access Key:</p>
       <div id="accessInputContainer">
-        <input type="password" id="accessKey" placeholder="Enter Access Key" />
+        <div class="password-container">
+          <input type="password" id="accessKey" placeholder="Enter Access Key" />
+          <span id="togglePassword">👁️</span>
+        </div>
         <button onclick="checkAccess()">Check Key</button>
       </div>
     </div>
