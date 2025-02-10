@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moon.Dev</title>
+  <!-- Favicon using the same icon as past the name -->
+  <link rel="icon" href="MoonPfp-removebg-preview.png" type="image/png" />
   <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
   <script>
     // Early Access Key
@@ -13,18 +16,14 @@
     function checkAccess() {
       const userKey = document.getElementById("accessKey").value;
       if (userKey === correctAccessKey) {
-        localStorage.setItem("accessGranted", "true");
         document.getElementById("accessOverlay").style.display = "none";
       } else {
         alert("Incorrect Access Key!");
       }
     }
 
-    // On load, check if access was granted; also update the key count and setup password toggle.
+    // On load, update the key count.
     window.onload = function () {
-      if (localStorage.getItem("accessGranted") === "true") {
-        document.getElementById("accessOverlay").style.display = "none";
-      }
       updateKeyCount();
       
       // Set up toggle password functionality for the eye emoji.
@@ -33,10 +32,10 @@
       togglePassword.addEventListener("click", function () {
         if (accessKeyInput.type === "password") {
           accessKeyInput.type = "text";
-          togglePassword.textContent = "🙈"; // Use a "closed eye" emoji when text is visible.
+          togglePassword.textContent = "🙈"; // Closed eye when visible.
         } else {
           accessKeyInput.type = "password";
-          togglePassword.textContent = "👁️"; // Use an "open eye" emoji when text is hidden.
+          togglePassword.textContent = "👁️"; // Open eye when hidden.
         }
       });
     };
@@ -56,15 +55,15 @@
       "Key73747383837", "Key63837473847", "Key83737273737", "Key83737473737", "Key37473837473"
     ];
 
-    // Retrieve the keys from localStorage (if available) or initialize with initialKeys
+    // Use localStorage to persist the key count between page reloads.
     let keys = JSON.parse(localStorage.getItem('keys')) || initialKeys;
 
-    // Update the key count displayed on the page
+    // Update the key count displayed on the page.
     function updateKeyCount() {
       document.getElementById("keyCount").innerText = `Keys Available: ${keys.length}`;
     }
 
-    // Send a webhook notification (for example, to Discord) when a key is purchased
+    // Send a webhook notification (for example, to Discord) when a key is purchased.
     function sendWebhook(purchasedKey) {
       fetch("https://discord.com/api/webhooks/1338242319865876573/kLoEoV2VXoYVFQKKmnw2RzTHa1cX0y2u_II-o629gBTYz_xdPkiMd3skM1SneKNkL5F3", {
         method: "POST",
@@ -73,7 +72,7 @@
       });
     }
 
-    // Download a key and update localStorage to persist the live key count
+    // Download a key and update localStorage to persist the live key count.
     function downloadKey() {
       if (keys.length === 0) {
         alert("No keys available!");
@@ -153,7 +152,7 @@
       border: none;
       background-color: #555;
       color: white;
-      padding-right: 40px; /* Extra padding for the eye icon */
+      padding-right: 40px; /* Extra space for the eye icon */
     }
     #togglePassword {
       position: absolute;
