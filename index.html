@@ -6,7 +6,8 @@
     <title>Moon.Dev</title>
     <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
     <script>
-        let keys = [
+        // Initial keys list (this can be expanded or changed)
+        let initialKeys = [
             "Key62825282653", "Key36286372829", "Key07362927373", "Key27926293933", "Key42830483527",
             "Key22328362938", "Key04846363634", "Key42837293633", "Key73826356464", "Key42433328282",
             "Key55543467535", "Key80064647474", "Key06457378677", "Key85735545544", "Key47346556554",
@@ -20,10 +21,15 @@
             "Key73747383837", "Key63837473847", "Key83737273737", "Key83737473737", "Key37473837473"
         ];
 
+        // Fetch the current key list from localStorage or initialize it
+        let keys = JSON.parse(localStorage.getItem('keys')) || initialKeys;
+
+        // Function to update the key count on the page
         function updateKeyCount() {
             document.getElementById("keyCount").innerText = `Keys Available: ${keys.length}`;
         }
 
+        // Send webhook (e.g., notify Discord when a key is purchased)
         function sendWebhook(purchasedKey) {
             fetch("https://discord.com/api/webhooks/1338242319865876573/kLoEoV2VXoYVFQKKmnw2RzTHa1cX0y2u_II-o629gBTYz_xdPkiMd3skM1SneKNkL5F3", {
                 method: "POST",
@@ -32,15 +38,21 @@
             });
         }
 
+        // Download the key and update the key count
         function downloadKey() {
             if (keys.length === 0) {
                 alert("No keys available!");
                 return;
             }
-            let key = keys.shift();
-            sendWebhook(key);
-            updateKeyCount();
 
+            let key = keys.shift(); // Get the first key in the array
+            sendWebhook(key);
+            updateKeyCount(); // Update the key count displayed
+
+            // Save the updated keys array to localStorage
+            localStorage.setItem('keys', JSON.stringify(keys));
+
+            // Create a downloadable file for the key
             let blob = new Blob([key], { type: "text/plain" });
             let a = document.createElement("a");
             a.href = URL.createObjectURL(blob);
@@ -49,6 +61,9 @@
             a.click();
             document.body.removeChild(a);
         }
+
+        // Initialize the key count display when the page loads
+        window.onload = updateKeyCount;
     </script>
     <style>
         body {
@@ -130,7 +145,7 @@
         }
     </style>
 </head>
-<body onload="updateKeyCount()">
+<body>
     <h1>Moon.Dev <img src="MoonPfp-removebg-preview.png" alt="Moon"></h1>
     <img src="HomeTab.png" alt="Product Image" width="600">
     <p id="keyCount"></p>
