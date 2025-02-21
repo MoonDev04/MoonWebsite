@@ -3,92 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moon.Dev</title>
+  <title>Draco YZ</title>
   <!-- Favicon using the same image as the header icon -->
   <link rel="icon" href="MoonPfp-removebg-preview.png" type="image/png" />
   <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
   <script>
-    // Early Access Key
-    const correctAccessKey = "MoonAcces023";
-
-    // Function to check Early Access key input
-    function checkAccess() {
-      const userKey = document.getElementById("accessKey").value;
-      if (userKey === correctAccessKey) {
-        // Hide the early access overlay once the correct key is entered.
-        document.getElementById("accessOverlay").style.display = "none";
-      } else {
-        alert("Incorrect Access Key!");
-      }
-    }
-
-    // On load, update the key count and set up the password toggle.
-    window.onload = function () {
-      updateKeyCount();
-      const togglePassword = document.getElementById("togglePassword");
-      const accessKeyInput = document.getElementById("accessKey");
-      togglePassword.addEventListener("click", function () {
-        if (accessKeyInput.type === "password") {
-          accessKeyInput.type = "text";
-          togglePassword.textContent = "🙈"; // Closed eye emoji when visible
-        } else {
-          accessKeyInput.type = "password";
-          togglePassword.textContent = "👁️"; // Open eye emoji when hidden
-        }
-      });
-    };
-
-    // Initial keys list (original keys plus 50 additional keys)
-    let initialKeys = [
-      "Key62825282653", "Key36286372829", "Key07362927373", "Key27926293933", "Key42830483527",
-      "Key22328362938", "Key04846363634", "Key42837293633", "Key73826356464", "Key42433328282",
-      "Key55543467535", "Key80064647474", "Key06457378677", "Key85735545544", "Key47346556554",
-      "Key44444665765", "Key55778655677", "Key00088435543", "Key90005466564",
-      "Key47383367364", "Key57828363637", "Key94757373833", "Key00284747377", "Key77463773737",
-      "Key18473728288", "Key92827362737", "Key72736464746", "Key82736464564", "Key38373646546",
-      "Key63737373636", "Key84737474748", "Key94737477373", "Key62747383847", "Key83737374737",
-      "Key43736362727", "Key93737262737", "Key73737372727", "Key37373637377", "Key74737272726",
-      "Key02737474636", "Key63736462727", "Key38474747373", "Key73747473737", "Key47373747473",
-      "Key37473737373", "Key27374646464", "Key92736464646", "Key27363636363", "Key82737474746",
-      "Key73747383837", "Key63837473847", "Key83737273737", "Key83737473737", "Key37473837473"
-    ];
-
-    // Retrieve the keys from localStorage (if available) or initialize with initialKeys.
-    let keys = JSON.parse(localStorage.getItem('keys')) || initialKeys;
-
-    // Update the key count displayed on the page.
-    function updateKeyCount() {
-      document.getElementById("keyCount").innerText = `Keys Available: ${keys.length}`;
-    }
-
-    // Send a webhook notification (for example, to Discord) when a key is purchased.
-    function sendWebhook(purchasedKey) {
-      fetch("https://discord.com/api/webhooks/1338242319865876573/kLoEoV2VXoYVFQKKmnw2RzTHa1cX0y2u_II-o629gBTYz_xdPkiMd3skM1SneKNkL5F3", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: `Key Purchased: ${purchasedKey}` })
-      });
-    }
-
-    // Download a key and update localStorage to persist the live key count.
-    function downloadKey() {
-      if (keys.length === 0) {
-        alert("No keys available!");
-        return;
-      }
-      let key = keys.shift();
-      sendWebhook(key);
-      updateKeyCount();
-      localStorage.setItem('keys', JSON.stringify(keys));
-      let blob = new Blob([key], { type: "text/plain" });
-      let a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "key.txt";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    }
-
     // Handle the purchase selection:
     // - For "basic": redirect to your PayPal invoice URL.
     // - For "premium": show an error alert.
@@ -109,74 +28,7 @@
       margin: 0;
       padding: 0;
     }
-    /* Early Access Overlay Styles */
-    #accessOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: rgba(0, 0, 0, 0.9);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-    #accessForm {
-      background-color: #222;
-      padding: 30px;
-      border-radius: 15px;
-      border: 2px solid white;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      color: white;
-      text-align: center;
-      width: 300px;
-      box-sizing: border-box;
-    }
-    /* Container for the password input and eye icon */
-    #accessInputContainer {
-      display: flex;
-      width: 100%;
-      gap: 10px;
-      margin-top: 10px;
-      box-sizing: border-box;
-    }
-    .password-container {
-      position: relative;
-      flex: 1;
-    }
-    #accessKey {
-      width: 100%;
-      padding: 10px 40px 10px 10px; /* extra right padding for the eye icon */
-      font-size: 16px;
-      border-radius: 5px;
-      border: none;
-      background-color: #555;
-      color: white;
-      box-sizing: border-box;
-    }
-    #togglePassword {
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      user-select: none;
-    }
-    #accessForm button {
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      background-color: #444;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-      flex-shrink: 0;
-    }
-    #accessForm button:hover {
-      background-color: #666;
-    }
+
     h1 {
       display: flex;
       justify-content: center;
@@ -189,6 +41,7 @@
       width: 50px;
       filter: brightness(0) invert(1);
     }
+
     .button-container {
       margin-top: 10px;
       display: flex;
@@ -251,23 +104,8 @@
   </style>
 </head>
 <body>
-  <!-- Early Access Overlay -->
-  <div id="accessOverlay">
-    <div id="accessForm">
-      <p>Please enter the Early Access Key:</p>
-      <div id="accessInputContainer">
-        <div class="password-container">
-          <input type="password" id="accessKey" placeholder="Enter Access Key" />
-          <span id="togglePassword">👁️</span>
-        </div>
-        <button onclick="checkAccess()">Check Key</button>
-      </div>
-    </div>
-  </div>
-
-  <h1>Moon.Dev <img src="MoonPfp-removebg-preview.png" alt="Moon" /></h1>
+  <h1>Draco YZ <img src="MoonPfp-removebg-preview.png" alt="Moon" /></h1>
   <img src="HomeTab.png" alt="Product Image" width="600" />
-  <p id="keyCount"></p>
   <div class="button-container">
     <button onclick="selectPurchase('basic')">Purchase Basic - $5</button>
     <button onclick="selectPurchase('premium')">Purchase Premium - $8</button>
