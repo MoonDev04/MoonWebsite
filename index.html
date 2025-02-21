@@ -6,17 +6,15 @@
   <title>Draco YZ</title>
   <!-- Favicon using the same image as the header icon -->
   <link rel="icon" href="IMG_4758.png" type="image/png" />
-  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID"></script>
   <script>
-    // Handle the purchase selection:
-    // - For "basic": redirect to your PayPal invoice URL.
-    // - For "premium": show an error alert.
-    function selectPurchase(option) {
-      if (option === 'basic') {
-        window.location.href = "https://www.paypal.com/invoice/payerView/details/INV2-BMK2-V7LG-WPXK-ZUNE?PDFqr=true";
-      } else if (option === 'premium') {
-        alert("Error: Premium is not Aviable at the Moment Please join our Support Server: https://discord.gg/JBuf8kp8X");
-      }
+    // Show the error message panel when the page loads
+    function showError() {
+      document.getElementById('errorPanel').style.display = 'block';
+    }
+
+    // Close the error message panel
+    function closeError() {
+      document.getElementById('errorPanel').style.display = 'none';
     }
   </script>
   <style>
@@ -88,6 +86,25 @@
     .panel em {
       font-size: 2em;
     }
+
+    /* Error panel styles */
+    #errorPanel {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #222;
+      padding: 20px;
+      border-radius: 15px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    #errorPanel button {
+      margin-top: 10px;
+    }
+
     @media (max-width: 600px) {
       .panel-container {
         flex-direction: column;
@@ -104,13 +121,19 @@
   </style>
 </head>
 <body>
-  <h1>Draco HoYZ <img src="IMG_4758.png" alt="Moon" /></h1>
+  <h1>Draco YZ <img src="IMG_4758.png" alt="Moon" /></h1>
   <img src="image.png" alt="Product Image" width="600" />
   <div class="button-container">
-    <button onclick="selectPurchase('basic')"> Basic - $5</button>
-    <button onclick="selectPurchase('premium')">Premium - $8</button>
+    <button onclick="showError()">Download</button>
     <button onclick="window.location.href='https://discord.gg/JBuf8kp8X'">Support</button>
   </div>
+  
+  <div id="errorPanel" class="panel">
+    <h2>Hmmm looks like something went Wrong</h2>
+    <p>Draco YZ is not released yet. For more information join our Support server.</p>
+    <button onclick="closeError()">Close</button>
+  </div>
+
   <div class="panel-container">
     <div class="panel">
       <em>🔒</em>
