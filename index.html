@@ -4,17 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Draco YZ</title>
-  <!-- Favicon using the same image as the header icon -->
   <link rel="icon" href="IMG_4758.png" type="image/png" />
   <script>
-    // Show the error message panel when the page loads
+    function toggleMenu() {
+      let menu = document.getElementById('menuPanel');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    }
+
     function showError() {
       document.getElementById('errorPanel').style.display = 'block';
     }
 
-    // Close the error message panel
     function closeError() {
       document.getElementById('errorPanel').style.display = 'none';
+    }
+
+    function openPanel() {
+      document.getElementById('scriptPanel').style.display = 'block';
+    }
+
+    function closePanel() {
+      document.getElementById('scriptPanel').style.display = 'none';
+    }
+
+    function copyScript() {
+      let scriptText = document.getElementById('scriptText');
+      scriptText.select();
+      scriptText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(scriptText.value);
+      alert("Script copied!");
+    }
+
+    function showTab(tabName) {
+      let tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.style.display = 'none');
+      document.getElementById(tabName).style.display = 'block';
+      toggleMenu();
     }
   </script>
   <style>
@@ -60,6 +85,7 @@
     button:hover {
       background: #444;
     }
+
     .panel-container {
       display: flex;
       justify-content: center;
@@ -76,9 +102,6 @@
       text-align: center;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
-    .panel p {
-      font-size: 1em;
-    }
     .panel h2 {
       font-size: 1.2em;
       margin-bottom: 10px;
@@ -87,8 +110,7 @@
       font-size: 2em;
     }
 
-    /* Error panel styles */
-    #errorPanel {
+    #errorPanel, #scriptPanel {
       display: none;
       position: fixed;
       top: 50%;
@@ -101,55 +123,103 @@
       text-align: center;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
-    #errorPanel button {
+    #errorPanel button, #scriptPanel button {
       margin-top: 10px;
     }
 
-    @media (max-width: 600px) {
-      .panel-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .panel {
-        width: 80%;
-      }
-      img {
-        width: 100%;
-        max-width: 400px;
-      }
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .menu-panel {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 100%;
+      background: #111;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(255, 255, 255, 0.2);
+    }
+    .menu-panel h2 {
+      display: flex;
+      align-items: center;
+    }
+    .menu-panel img {
+      width: 40px;
+      margin-right: 10px;
+    }
+    .menu-panel button {
+      width: 100%;
+      text-align: left;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 5px;
     }
   </style>
 </head>
 <body>
-  <h1>Draco YZ <img src="IMG_4758.png" alt="Moon" /></h1>
-  <img src="image.png" alt="Product Image" width="600" />
-  <div class="button-container">
-    <button onclick="showError()">Download</button>
-    <button onclick="window.location.href='https://discord.gg/JBuf8kp8X'">Support</button>
+
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+  <div id="menuPanel" class="menu-panel">
+    <h2><img src="IMG_4758.png" alt="Logo"> Draco YZ</h2>
+    <button onclick="showTab('home')">🏠 Home</button>
+    <button onclick="showTab('scripts')">📜 Scripts</button>
+    <button onclick="showTab('executors')">⚙️ Executors</button>
+    <button onclick="toggleMenu()">❌ Close</button>
   </div>
-  
-  <div id="errorPanel" class="panel">
-    <h2>Hmmm looks like something went Wrong</h2>
-    <p>Draco YZ is not released yet. For more information join our Support server.</p>
+
+  <div id="home" class="tab-content">
+    <h1>Draco YZ <img src="IMG_4758.png" alt="Moon" /></h1>
+    <img src="image.png" alt="Product Image" width="600" />
+    <div class="button-container">
+      <button onclick="showError()">Download</button>
+      <button onclick="window.location.href='https://discord.gg/JBuf8kp8X'">Support</button>
+    </div>
+  </div>
+
+  <div id="scripts" class="tab-content" style="display: none;">
+    <div class="panel">
+      <h2>Camera Lock</h2>
+      <p>Keyless | 0 FPS Drops | Universal</p>
+      <button onclick="openPanel()">💻 </> Get script</button>
+      <p>By @Draxo3</p>
+    </div>
+  </div>
+
+  <div id="executors" class="tab-content" style="display: none;">
+    <p>Executors content coming soon...</p>
+  </div>
+
+  <div id="scriptPanel">
+    <h2>Camera Lock</h2>
+    <p>Keyless | 0 FPS Drops | Universal</p>
+    <textarea id="scriptText" readonly rows="8" style="width: 100%;">
+getgenv().Aimbot = {
+  Status = true,
+  Keybind  = 'C',
+  Hitpart = 'HumanoidRootPart',
+  Prediction = { X = 0, Y = 0 }
+}
+    </textarea>
+    <button onclick="copyScript()">📋 Copy</button>
+    <button onclick="closePanel()">❌ Close</button>
+  </div>
+
+  <div id="errorPanel">
+    <h2>Hmmm looks like something went wrong</h2>
+    <p>Draco YZ is not released yet. For more information, join our support server.</p>
     <button onclick="closeError()">Close</button>
   </div>
 
-  <div class="panel-container">
-    <div class="panel">
-      <em>🔒</em>
-      <h2>Secure</h2>
-      <p>All transactions and user data are encrypted for maximum security.</p>
-    </div>
-    <div class="panel">
-      <em>⚡</em>
-      <h2>Lightning Fast</h2>
-      <p>Experience instant execution with optimized performance.</p>
-    </div>
-    <div class="panel">
-      <em>👁️‍🗨️</em>
-      <h2>Undetected</h2>
-      <p>Our software is updated to remain undetected by anti-cheat systems.</p>
-    </div>
-  </div>
 </body>
 </html>
